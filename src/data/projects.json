@@ -1,0 +1,81 @@
+[
+  {
+    "id": "portfolio",
+    "name": "Portfolio Website",
+    "description": "A modern, responsive personal portfolio website built with React and Tailwind CSS, featuring smooth animations, theme toggling, and an elegant design showcasing my projects and skills.",
+    "tags": ["frontend", "design"],
+    "featured": true,
+    "githubLink": "https://github.com/kspriyanka14/kspriyanka14.github.io",
+    "liveDemoLink": "https://priyankaks.com",
+    "videoLink": "",
+    "imageName": "portfolio",
+    "imageNameDark": "portfolio-dark",
+    "imageNameLight": "portfolio-light",
+    "techStack": ["React", "Vite", "Tailwind CSS", "JavaScript"]
+  },
+  {
+    "id": "filetrace",
+    "name": "FileTrace",
+    "description": "An audit-first file management platform with secure upload, organization, and sharing capabilities. Features comprehensive activity tracking, server-side encryption, categorized file organization, and time-limited shareable links with access monitoring.",
+    "tags": ["fullstack", "devops", "backend"],
+    "featured": true,
+    "githubLink": "https://github.com/kspriyanka14/SSW590-FileTrace",
+    "liveDemoLink": "",
+    "videoLink": "",
+    "imageName": "filetrace",
+    "techStack": [
+      "React",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "AWS",
+      "Tailwind CSS",
+      "Docker",
+      "GitHub Actions",
+      "Jest"
+    ]
+  },
+  {
+    "id": "peer-tutor-connect",
+    "name": "Peer-Tutor Connect",
+    "description": "A real-time, course-specific peer-to-peer micro-tutoring web application enabling students to post questions, provide responses, and receive notifications. Features anonymous posting options, threaded discussions, and a shared dashboard for collaborative learning.",
+    "tags": ["fullstack", "frontend", "backend"],
+    "featured": true,
+    "githubLink": "https://github.com/kspriyanka14/CS545-Peer-Tutor-Connect",
+    "liveDemoLink": "",
+    "videoLink": "",
+    "imageName": "peer-tutor-connect",
+    "techStack": [
+      "React",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "Tailwind CSS",
+      "Jest"
+    ]
+  },
+  {
+    "id": "smart-posture",
+    "name": "Smart Posture Monitoring",
+    "description": "A desktop app featuring a friendly duck that monitors your posture through your webcam, sends timely 'quack' alerts when you slouch, and offers customizable break reminders with simple exercises to prevent back pain and promote healthier work habits.",
+    "tags": ["desktop", "ai"],
+    "featured": false,
+    "githubLink": "https://github.com/kspriyanka14/ducktor-smart-posture-monitoring-system",
+    "liveDemoLink": "",
+    "videoLink": "",
+    "imageName": "smart-posture",
+    "techStack": ["Electron", "JavaScript", "TensorFlow.js", "HTML", "CSS"]
+  },
+  {
+    "id": "strava-lite",
+    "name": "Strava Lite",
+    "description": "A Flask-based REST API application for managing users and workouts. Features user registration, workout tracking, friend following system, and workout feed viewing. Built with comprehensive API endpoints and thorough testing.",
+    "tags": ["backend"],
+    "featured": false,
+    "githubLink": "https://github.com/kspriyanka14/CS515_Flask_Project",
+    "liveDemoLink": "",
+    "videoLink": "",
+    "imageName": "strava-lite",
+    "techStack": ["Python", "Flask", "Flask-RESTful", "Python Unittest"]
+  }
+]
