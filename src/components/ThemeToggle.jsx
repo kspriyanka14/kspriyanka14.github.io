@@ -125,7 +125,8 @@ export const ThemeToggle = () => {
         "fixed bottom-4 left-4 p-3 rounded-full transition-all duration-300",
         "bg-card shadow-lg hover:scale-110 active:scale-95",
         "border-2 border-primary/20 hover:border-primary/40",
-        "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+        "opacity-0 animate-theme-toggle"
       )}
       style={{ zIndex: Z_INDEX.THEME_TOGGLE }}
       aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
