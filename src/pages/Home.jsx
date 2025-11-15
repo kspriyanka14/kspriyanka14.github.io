@@ -1,7 +1,6 @@
 import { ThemeToggle } from "../components/ThemeToggle";
 import { DarkSpaceBackground } from "../components/DarkSpaceBackground";
 import { LightSkyBackground } from "../components/LightSkyBackground";
-import { Navbar } from "../components/Navbar";
 import { HeroSection } from "../components/HeroSection";
 import { SkillsSection } from "../components/SkillsSection";
 import { ProjectsSection } from "../components/ProjectsSection";
@@ -37,7 +36,6 @@ export const Home = () => {
       {/* Conditional background rendering */}
       {isDarkMode ? <DarkSpaceBackground /> : <LightSkyBackground />}
 
-      <Navbar />
       <main>
         <HeroSection />
         <SkillsSection />

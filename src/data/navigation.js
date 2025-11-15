@@ -1,15 +1,4 @@
 /**
- * Navigation menu items for the main navbar
- * Each item includes a label and corresponding section ID for smooth scrolling
- */
-export const navItems = [
-  { id: "home", label: "Home", href: "#home" },
-  { id: "skills", label: "Skills", href: "#skills" },
-  { id: "projects", label: "Projects", href: "#projects" },
-  { id: "contact", label: "Contact", href: "#contact" },
-];
-
-/**
  * Contact information for the contact section
  */
 export const contactInfo = {
