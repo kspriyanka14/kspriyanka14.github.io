@@ -10,7 +10,7 @@ import { personalInfo } from "@/data/navigation";
  * - Mobile: Image on top → Content below
  * - Equal padding on left and right edges (centered layout)
  * - Left-aligned text for better readability
- * - 3 equal-sized CTA buttons
+ * - 2 CTA buttons (View My Work, Contact Me)
  * - Visible scroll arrow indicator (desktop only)
  *
  * @returns {JSX.Element} Home section with proper centering
@@ -73,7 +73,7 @@ export const HeroSection = () => {
               </p>
             </div>
 
-            {/* CTA Buttons - All Equal Size */}
+            {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-stretch pt-4 opacity-0 animate-fade-in-delay-5">
               <a
                 href="#projects"
@@ -86,13 +86,6 @@ export const HeroSection = () => {
                 className="px-6 py-3 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-background hover:shadow-[0_0_30px_hsl(var(--primary)_/_0.7)] transition-all duration-300 font-medium text-center hover:scale-105"
               >
                 Contact Me
-              </a>
-              <a
-                href="/resume.pdf"
-                download
-                className="px-6 py-3 rounded-full border-2 border-primary text-primary hover:bg-primary/10 hover:shadow-[0_0_30px_hsl(var(--primary)_/_0.7)] transition-all duration-300 font-medium text-center hover:scale-105"
-              >
-                Download CV
               </a>
             </div>
           </div>
