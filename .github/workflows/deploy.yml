@@ -1,42 +1,111 @@
+# ========================================
+# GitHub Actions Workflow: Deploy to GitHub Pages
+# ========================================
+# This workflow automatically builds and deploys the React portfolio website
+# to GitHub Pages whenever changes are pushed to the main branch.
+#
+# Live Site: https://priyankaks.com
+# ========================================
+
 name: Deploy to GitHub Pages
 
+# ========================================
+# Trigger Configuration
+# ========================================
+# This workflow runs automatically on every push to the main branch
 on:
   push:
     branches:
       - main
 
+# ========================================
+# Permissions
+# ========================================
+# Minimal permissions required for GitHub Pages deployment
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: read # Read repository contents
+  pages: write # Deploy to GitHub Pages
+  id-token: write # Generate deployment token
 
+# ========================================
+# Jobs
+# ========================================
 jobs:
   build-and-deploy:
+    # Run on latest Ubuntu runner for consistent environment
     runs-on: ubuntu-latest
+
     steps:
+      # ========================================
+      # Step 1: Checkout Repository
+      # ========================================
+      # Fetches the latest code from the repository
+      # Using v4 for the latest security updates and features
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # ========================================
+      # Step 2: Setup Node.js Environment
+      # ========================================
+      # Installs Node.js 24 (latest LTS) with npm caching
+      # Caching speeds up subsequent workflow runs by reusing node_modules
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
-          cache: 'npm'
+          node-version: "24" # Latest Node.js LTS version
+          cache: "npm" # Cache npm dependencies for faster installs
 
+      # ========================================
+      # Step 3: Install Dependencies
+      # ========================================
+      # Uses 'npm ci' instead of 'npm install' for the following reasons:
+      # - Requires package-lock.json (ensures reproducible builds)
+      # - Faster than npm install in CI environments
+      # - Removes node_modules before installing (clean slate)
+      # - Fails if package.json and package-lock.json are out of sync
+      # - More reliable for automated deployments
+      #
+      # IMPORTANT: package-lock.json MUST be committed to git
       - name: Install dependencies
         run: npm ci
 
+      # ========================================
+      # Step 4: Lint Code
+      # ========================================
+      # Runs ESLint to check code quality and catch potential errors
+      # 'continue-on-error: true' allows deployment even if linting fails
+      # This prevents minor style issues from blocking deployment
       - name: Lint code
         run: npm run lint
         continue-on-error: true
 
+      # ========================================
+      # Step 5: Build Production Bundle
+      # ========================================
+      # Runs 'vite build' to create optimized production files
+      # Output goes to ./dist directory with:
+      # - Minified JavaScript and CSS
+      # - Optimized images
+      # - Generated HTML
+      # - CNAME file for custom domain (priyankaks.com)
       - name: Build project
         run: npm run build
 
+      # ========================================
+      # Step 6: Upload Build Artifact
+      # ========================================
+      # Packages the ./dist directory as a GitHub Pages artifact
+      # This artifact will be used in the deployment step
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
+      # ========================================
+      # Step 7: Deploy to GitHub Pages
+      # ========================================
+      # Deploys the uploaded artifact to GitHub Pages
+      # Site will be available at https://priyankaks.com
+      # Deployment typically takes 1-2 minutes to propagate
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4

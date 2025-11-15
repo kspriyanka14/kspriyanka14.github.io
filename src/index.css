@@ -133,6 +133,18 @@
     font-feature-settings: "rlig" 1, "calt" 1;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
+
+    /* iOS Safari notch/Dynamic Island support */
+    /* Ensures content doesn't get hidden behind device UI elements */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+
+    /* Prevent overscroll background color issues on iOS */
+    /* Ensures background color extends to edges even during rubber-band scrolling */
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
   }
 }
 

@@ -2,9 +2,113 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>portfolio-ksp</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <!-- Enhanced viewport for iPhone notch/Dynamic Island support -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+
+    <!-- Color scheme support for native UI elements -->
+    <meta name="color-scheme" content="light dark" />
+
+    <!-- Safari mobile theme-color for status bar/Dynamic Island (Light Mode) -->
+    <!-- Using hex instead of HSL for better Safari compatibility -->
+    <meta
+      name="theme-color"
+      content="#f0f6fa"
+      media="(prefers-color-scheme: light)"
+    />
+
+    <!-- Safari mobile theme-color for status bar/Dynamic Island (Dark Mode) -->
+    <!-- Using slightly off-black (#0d0d12) as Safari rejects pure black (#000) -->
+    <meta
+      name="theme-color"
+      content="#0d0d12"
+      media="(prefers-color-scheme: dark)"
+    />
+
+    <!-- Apple mobile web app status bar style -->
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+
+    <title>Priyanka K S</title>
+
+    <!-- Initialize theme BEFORE React loads to prevent flash of wrong theme -->
+    <script>
+      (function () {
+        // Theme initialization logic
+        // Priority: localStorage > system preference > dark default
+
+        const STORAGE_KEY = "theme";
+        const DARK_CLASS = "dark";
+
+        // Colors for Safari mobile status bar (hex for better Safari compatibility)
+        const LIGHT_THEME_COLOR = "#f0f6fa"; // Light sky blue
+        const DARK_THEME_COLOR = "#0d0d12"; // Deep space (not pure black - Safari rejects #000)
+
+        function getInitialTheme() {
+          // 1. Check localStorage first (user's explicit choice)
+          const storedTheme = localStorage.getItem(STORAGE_KEY);
+          if (storedTheme === "dark" || storedTheme === "light") {
+            return storedTheme;
+          }
+
+          // 2. Check system preference (prefers-color-scheme)
+          if (window.matchMedia) {
+            if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+              return "dark";
+            }
+            if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+              return "light";
+            }
+          }
+
+          // 3. Default to dark theme
+          return "dark";
+        }
+
+        function updateThemeColor(isDark) {
+          // Update theme-color meta tag for Safari mobile
+          let themeColorMeta = document.querySelector(
+            'meta[name="theme-color"]:not([media])'
+          );
+          if (!themeColorMeta) {
+            themeColorMeta = document.createElement("meta");
+            themeColorMeta.name = "theme-color";
+            document.head.appendChild(themeColorMeta);
+          }
+          themeColorMeta.content = isDark
+            ? DARK_THEME_COLOR
+            : LIGHT_THEME_COLOR;
+        }
+
+        // Apply theme immediately
+        const theme = getInitialTheme();
+        const isDark = theme === "dark";
+
+        if (isDark) {
+          document.documentElement.classList.add(DARK_CLASS);
+          // Set background color immediately for Safari to sample
+          document.documentElement.style.backgroundColor = DARK_THEME_COLOR;
+        } else {
+          document.documentElement.classList.remove(DARK_CLASS);
+          // Set background color immediately for Safari to sample
+          document.documentElement.style.backgroundColor = LIGHT_THEME_COLOR;
+        }
+
+        // Update Safari mobile theme color
+        updateThemeColor(isDark);
+
+        // Save to localStorage if not already set (for first-time visitors)
+        if (!localStorage.getItem(STORAGE_KEY)) {
+          localStorage.setItem(STORAGE_KEY, theme);
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
