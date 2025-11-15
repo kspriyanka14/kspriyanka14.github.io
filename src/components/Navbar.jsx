@@ -132,7 +132,7 @@ export const Navbar = () => {
           "fixed w-full top-0 z-[100] transition-all duration-300",
           isScrolled
             ? "py-3 bg-background/95 backdrop-blur-md shadow-lg border-b border-border"
-            : "py-5 bg-background/80 backdrop-blur-sm"
+            : "py-5 bg-transparent"
         )}
       >
         <div className="container flex items-center justify-between px-4">

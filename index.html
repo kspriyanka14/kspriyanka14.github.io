@@ -37,6 +37,32 @@
 
     <title>Priyanka K S</title>
 
+    <!-- Set default background color IMMEDIATELY (before any JavaScript) -->
+    <!-- This ensures Safari samples the correct color from the very first paint -->
+    <style>
+      /*
+       * Set html background-color immediately for Safari browser chrome sampling
+       * Priority: .dark class > system preference > dark default
+       */
+
+      /* Base default: dark theme (fallback) */
+      html {
+        background-color: #0d0d12;
+      }
+
+      /* If system prefers light AND no .dark class, use light */
+      @media (prefers-color-scheme: light) {
+        html:not(.dark) {
+          background-color: #f0f6fa;
+        }
+      }
+
+      /* If .dark class is present, always use dark (overrides system preference) */
+      html.dark {
+        background-color: #0d0d12 !important;
+      }
+    </style>
+
     <!-- Initialize theme BEFORE React loads to prevent flash of wrong theme -->
     <script>
       (function () {
@@ -92,13 +118,11 @@
 
         if (isDark) {
           document.documentElement.classList.add(DARK_CLASS);
-          // Set background color immediately for Safari to sample
-          document.documentElement.style.backgroundColor = DARK_THEME_COLOR;
         } else {
           document.documentElement.classList.remove(DARK_CLASS);
-          // Set background color immediately for Safari to sample
-          document.documentElement.style.backgroundColor = LIGHT_THEME_COLOR;
         }
+        // Note: background-color is now set via inline CSS in <head>
+        // This ensures Safari samples the correct color from the very first paint
 
         // Update Safari mobile theme color
         updateThemeColor(isDark);

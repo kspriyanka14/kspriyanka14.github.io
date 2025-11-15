@@ -72,62 +72,41 @@ export const ThemeToggle = () => {
       if (!hasExplicitPreference) {
         const shouldBeDark = e.matches;
 
-        // Update DOM class
+        // Update DOM class (CSS will handle background-color automatically)
         if (shouldBeDark) {
           document.documentElement.classList.add(THEME_CLASS);
         } else {
           document.documentElement.classList.remove(THEME_CLASS);
         }
 
-        // Update html background color for Safari to sample
-        document.documentElement.style.backgroundColor = shouldBeDark
-          ? DARK_THEME_COLOR
-          : LIGHT_THEME_COLOR;
-
         setIsDarkMode(shouldBeDark);
         updateThemeColor(shouldBeDark);
       }
     };
 
-    // Add listener for system preference changes (modern browsers)
-    if (darkModeMediaQuery.addEventListener) {
-      darkModeMediaQuery.addEventListener("change", handleSystemThemeChange);
-    } else if (darkModeMediaQuery.addListener) {
-      // Fallback for older browsers
-      darkModeMediaQuery.addListener(handleSystemThemeChange);
-    }
+    // Add listener for system preference changes
+    darkModeMediaQuery.addEventListener("change", handleSystemThemeChange);
 
     // Cleanup
     return () => {
-      if (darkModeMediaQuery.removeEventListener) {
-        darkModeMediaQuery.removeEventListener(
-          "change",
-          handleSystemThemeChange
-        );
-      } else if (darkModeMediaQuery.removeListener) {
-        darkModeMediaQuery.removeListener(handleSystemThemeChange);
-      }
+      darkModeMediaQuery.removeEventListener("change", handleSystemThemeChange);
     };
   }, []);
 
   /**
    * Toggle theme between light and dark modes
-   * Updates DOM, localStorage, Safari mobile theme color, and html background
+   * Updates DOM class, localStorage, and Safari mobile theme color
+   * (Background color updates automatically via CSS based on .dark class)
    */
   const toggleTheme = () => {
     const newIsDark = !isDarkMode;
 
-    // Update DOM class
+    // Update DOM class (CSS will handle background-color automatically)
     if (newIsDark) {
       document.documentElement.classList.add(THEME_CLASS);
     } else {
       document.documentElement.classList.remove(THEME_CLASS);
     }
-
-    // Update html background color immediately (for Safari to sample)
-    document.documentElement.style.backgroundColor = newIsDark
-      ? DARK_THEME_COLOR
-      : LIGHT_THEME_COLOR;
 
     // Save user's explicit choice
     localStorage.setItem(STORAGE_KEYS.THEME, newIsDark ? "dark" : "light");
