@@ -1,5 +1,5 @@
-import { Instagram, Linkedin, Mail, Github } from "lucide-react";
-import { contactInfo } from "@/data/navigation";
+import { Instagram, Linkedin, Mail, Github } from 'lucide-react';
+import { contactInfo } from '@/data/navigation';
 
 /**
  * ContactSection component - Displays contact information and social links
@@ -26,21 +26,21 @@ export const ContactSection = () => {
 
         {/* Seeking opportunities description */}
         <p className="text-center text-foreground/90 font-medium mb-10 sm:mb-12 max-w-2xl mx-auto leading-relaxed text-sm sm:text-base text-left px-4">
-          I'm currently seeking full-time and internship opportunities as a{" "}
+          I'm currently seeking full-time and internship opportunities as a{' '}
           <span className="text-foreground font-semibold">
             Software Engineer
           </span>
-          ,{" "}
+          ,{' '}
           <span className="text-foreground font-semibold">
             Full-Stack Developer
           </span>
-          ,{" "}
+          ,{' '}
           <span className="text-foreground font-semibold">
             Frontend/Backend Developer
           </span>
-          ,{" "}
+          ,{' '}
           <span className="text-foreground font-semibold">DevOps Engineer</span>
-          , or{" "}
+          , or{' '}
           <span className="text-foreground font-semibold">UI/UX Designer</span>.
           Whether you want to discuss opportunities or just say hello, feel free
           to contact me through the following communication channels.

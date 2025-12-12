@@ -14,6 +14,7 @@ The website follows modern web development best practices with a modular archite
 - **Vite** 7.1.7 - Fast build tool and development server
 - **Tailwind CSS** v4.1.17 - Utility-first CSS framework with custom theme
 - **React Router** 7.9.5 - Client-side routing
+- **Embla Carousel React** 8.6.0 - Smooth, touch-friendly carousel for projects
 - **Lucide React** 0.553.0 - Icon library
 - **ESLint** 9 - Code linting with React-specific rules
 
@@ -21,7 +22,7 @@ The website follows modern web development best practices with a modular archite
 
 ### Design & User Experience
 
-- **Theme Toggle** - Switch between light and dark modes with persistent preference
+- **Theme Toggle** - Switch between light and dark modes with persistent preference and system preference detection
 - **Responsive Design** - Fully optimized for mobile, tablet, and desktop screens
 - **Smooth Animations** - Sequential fade-in effects and scroll-triggered animations
 - **Custom Animated Backgrounds** - Dynamic starfield for dark mode, animated clouds for light mode
@@ -29,17 +30,18 @@ The website follows modern web development best practices with a modular archite
 ### Technical Features
 
 - **Progressive Image Loading** - Tries AVIF → WebP → JPEG with automatic fallbacks
-- **Theme-Aware Project Images** - Portfolio project displays different screenshots in light/dark mode
-- **Active Section Highlighting** - Navigation automatically highlights current section while scrolling
+- **Theme-Aware Project Images** - Portfolio projects display different screenshots in light/dark mode
+- **Project Carousel** - Embla-powered smooth carousel with navigation arrows and dot indicators
 - **Project Filtering** - Filter projects by category (fullstack, frontend, backend, AI/ML, design, desktop, devops)
 - **Card Flip Animation** - Project cards flip to show descriptions on hover or tap
+- **Skills Marquee** - Animated scrolling display of tech skills with colored logos in the hero section
 - **Hover Effects** - Glowing borders, light reflection animations, and interactive feedback throughout
 
 ### Content Organization
 
 - **Modular Data Structure** - All content separated from components for easy updates
-- **8 Skill Categories** - Languages, Frontend, Backend & APIs, Databases, Design Tools, Development Tools, DevOps & Cloud, Testing & Documentation
-- **Featured Projects** - Highlight key projects with larger cards and more details
+- **Skills Display** - Rolling marquee showcasing 26 tech skills with original colored Devicon logos
+- **Featured Projects** - Key projects appear first in the carousel
 - **Contact Information** - Email, LinkedIn, GitHub, and Instagram links with smooth interactions
 
 ## Getting Started
@@ -132,14 +134,13 @@ All images should be 16:9 aspect ratio for consistency.
 
 ### Updating Skills
 
-Edit `/src/data/skills.js` to add or modify skills:
+Edit `/src/data/skills.js` to add or modify skills. Skills are displayed as a rolling marquee with logos:
 
 ```javascript
 {
-  id: "category-id",
-  title: "Category Name",
-  icon: IconComponent, // from lucide-react
-  skills: ["Skill 1", "Skill 2", "Skill 3"]
+  id: "skill-id",
+  name: "Skill Name",
+  icon: "icon-filename.svg"  // Icon from /public/images/skills/
 }
 ```
 
@@ -150,7 +151,6 @@ Edit `/src/data/navigation.js` to update:
 - Name and tagline
 - About content
 - Contact email and social links
-- Navigation menu items
 
 ### Image Requirements
 
@@ -165,3 +165,8 @@ Edit `/src/data/navigation.js` to update:
 - Location: `/public/images/projects/{project-id}/`
 - Aspect ratio: 16:9
 - Formats: `{imageName}.avif`, `{imageName}.webp`, `{imageName}.jpg`
+
+**Skill Icons:**
+
+- Location: `/public/images/skills/`
+- Format: SVG (original colored Devicon logos)

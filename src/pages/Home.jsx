@@ -1,12 +1,11 @@
-import { ThemeToggle } from "../components/ThemeToggle";
-import { DarkSpaceBackground } from "../components/DarkSpaceBackground";
-import { LightSkyBackground } from "../components/LightSkyBackground";
-import { HeroSection } from "../components/HeroSection";
-import { SkillsSection } from "../components/SkillsSection";
-import { ProjectsSection } from "../components/ProjectsSection";
-import { ContactSection } from "../components/ContactSection";
-import { Footer } from "../components/Footer";
-import { useEffect, useState } from "react";
+import { ThemeToggle } from '../components/ThemeToggle';
+import { DarkSpaceBackground } from '../components/DarkSpaceBackground';
+import { LightSkyBackground } from '../components/LightSkyBackground';
+import { HeroSection } from '../components/HeroSection';
+import { ProjectsSection } from '../components/ProjectsSection';
+import { ContactSection } from '../components/ContactSection';
+import { Footer } from '../components/Footer';
+import { useEffect, useState } from 'react';
 
 export const Home = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -14,7 +13,7 @@ export const Home = () => {
   useEffect(() => {
     // Check initial theme
     const checkTheme = () => {
-      setIsDarkMode(document.documentElement.classList.contains("dark"));
+      setIsDarkMode(document.documentElement.classList.contains('dark'));
     };
 
     checkTheme();
@@ -23,7 +22,7 @@ export const Home = () => {
     const observer = new MutationObserver(checkTheme);
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ["class"],
+      attributeFilter: ['class'],
     });
 
     return () => observer.disconnect();
@@ -38,7 +37,6 @@ export const Home = () => {
 
       <main>
         <HeroSection />
-        <SkillsSection />
         <ProjectsSection />
         <ContactSection />
       </main>

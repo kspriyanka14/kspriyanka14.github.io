@@ -1,8 +1,16 @@
-import { useState, useEffect, useRef } from "react";
-import { ExternalLink, Github, Play } from "lucide-react";
-import { ProgressiveImage } from "@/components/ProgressiveImage";
-import { PROJECT_FILTERS } from "@/data/constants";
-import projectsData from "@/data/projects.json";
+import { useState, useEffect, useRef, useCallback } from 'react';
+import {
+  ExternalLink,
+  Github,
+  Play,
+  ChevronLeft,
+  ChevronRight,
+} from 'lucide-react';
+import useEmblaCarousel from 'embla-carousel-react';
+import { ProgressiveImage } from '@/components/ProgressiveImage';
+import { PROJECT_FILTERS } from '@/data/constants';
+import projectsData from '@/data/projects.json';
+import { cn } from '@/lib/utils';
 
 /**
  * ProjectCard component - Displays a single project with image, description, and links
@@ -14,12 +22,11 @@ import projectsData from "@/data/projects.json";
  *
  * @param {Object} props - Component props
  * @param {Object} props.project - Project data object
- * @param {boolean} props.featured - Whether this is a featured project
  * @returns {JSX.Element} Project card component
  */
-const ProjectCard = ({ project, featured = false }) => {
+const ProjectCard = ({ project }) => {
   const [isFlipped, setIsFlipped] = useState(false);
-  const maxTechStack = featured ? 20 : 10;
+  const maxTechStack = 10;
   const displayedTechStack = project.techStack.slice(0, maxTechStack);
 
   const handleFlipToggle = () => {
@@ -27,20 +34,16 @@ const ProjectCard = ({ project, featured = false }) => {
   };
 
   return (
-    <div
-      className={`group bg-card rounded-lg shadow-md border-2 border-primary/20 overflow-hidden flex flex-col transition-all duration-300 hover:border-primary hover:shadow-[0_0_30px_hsl(var(--primary)_/_0.5)] hover:scale-[1.03] relative before:absolute before:top-0 before:bottom-0 before:w-[50%] before:-left-full before:bg-gradient-to-r before:from-transparent before:via-white/40 dark:before:via-white/20 before:to-transparent before:skew-x-[-20deg] before:z-10 hover:before:animate-shine ${
-        featured ? "w-full max-w-2xl" : "w-full max-w-sm"
-      }`}
-    >
+    <div className="group bg-card rounded-lg shadow-md border-2 border-primary/20 overflow-hidden flex flex-col transition-all duration-300 hover:border-primary hover:shadow-[0_0_30px_hsl(var(--primary)_/_0.5)] hover:scale-105 relative before:absolute before:top-0 before:bottom-0 before:w-[50%] before:-left-full before:bg-gradient-to-r before:from-transparent before:via-white/40 dark:before:via-white/20 before:to-transparent before:skew-x-[-20deg] before:z-10 hover:before:animate-shine w-full max-w-sm">
       {/* Flip container for image/description */}
       <div
         className="relative w-full cursor-pointer border-b-2 border-primary/20"
-        style={{ aspectRatio: "16/9", perspective: "1000px" }}
+        style={{ aspectRatio: '16/9', perspective: '1000px' }}
         onClick={handleFlipToggle}
       >
         <div
           className={`absolute inset-0 transition-transform duration-700 [transform-style:preserve-3d] ${
-            isFlipped ? "[transform:rotateY(180deg)]" : ""
+            isFlipped ? '[transform:rotateY(180deg)]' : ''
           } md:group-hover:[transform:rotateY(180deg)]`}
         >
           {/* Front - Project image */}
@@ -89,24 +92,16 @@ const ProjectCard = ({ project, featured = false }) => {
         )}
 
         {/* Project links - stays at bottom */}
-        <div
-          className={`flex flex-wrap justify-center gap-2 sm:gap-3 pt-3 sm:pt-4 border-t border-border ${
-            featured ? "gap-3 sm:gap-4" : ""
-          }`}
-        >
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 pt-3 sm:pt-4 border-t border-border">
           {/* GitHub link (always shown) */}
           <a
             href={project.githubLink}
             target="_blank"
             rel="noopener noreferrer"
-            className={`flex items-center gap-1.5 rounded-lg font-medium text-foreground/90 border border-border/50 bg-card/50 transition-all duration-300 group-hover:border-primary group-hover:bg-primary/10 group-hover:shadow-[0_0_20px_hsl(var(--primary)_/_0.5)] hover:!text-primary hover:scale-105 active:scale-95 ${
-              featured
-                ? "px-3 py-1.5 gap-2 text-xs sm:text-sm"
-                : "px-2 py-1 text-xs"
-            }`}
+            className="flex items-center gap-1.5 px-2 py-1 text-xs rounded-lg font-medium text-foreground/90 border border-border/50 bg-card/50 transition-all duration-300 group-hover:border-primary group-hover:bg-primary/10 group-hover:shadow-[0_0_20px_hsl(var(--primary)_/_0.5)] hover:!text-primary hover:scale-105 active:scale-95"
             aria-label={`View ${project.name} code`}
           >
-            <Github className={featured ? "h-4 w-4" : "h-3.5 w-3.5"} />
+            <Github className="h-3.5 w-3.5" />
             <span>Code</span>
           </a>
 
@@ -116,14 +111,10 @@ const ProjectCard = ({ project, featured = false }) => {
               href={project.liveDemoLink}
               target="_blank"
               rel="noopener noreferrer"
-              className={`flex items-center gap-1.5 rounded-lg font-medium text-foreground/90 border border-border/50 bg-card/50 transition-all duration-300 group-hover:border-primary group-hover:bg-primary/10 group-hover:shadow-[0_0_20px_hsl(var(--primary)_/_0.5)] hover:!text-primary hover:scale-105 active:scale-95 ${
-                featured
-                  ? "px-3 py-1.5 gap-2 text-xs sm:text-sm"
-                  : "px-2 py-1 text-xs"
-              }`}
+              className="flex items-center gap-1.5 px-2 py-1 text-xs rounded-lg font-medium text-foreground/90 border border-border/50 bg-card/50 transition-all duration-300 group-hover:border-primary group-hover:bg-primary/10 group-hover:shadow-[0_0_20px_hsl(var(--primary)_/_0.5)] hover:!text-primary hover:scale-105 active:scale-95"
               aria-label={`View ${project.name} live demo`}
             >
-              <ExternalLink className={featured ? "h-4 w-4" : "h-3.5 w-3.5"} />
+              <ExternalLink className="h-3.5 w-3.5" />
               <span>Demo</span>
             </a>
           )}
@@ -134,14 +125,10 @@ const ProjectCard = ({ project, featured = false }) => {
               href={project.videoLink}
               target="_blank"
               rel="noopener noreferrer"
-              className={`flex items-center gap-1.5 rounded-lg font-medium text-foreground/90 border border-border/50 bg-card/50 transition-all duration-300 group-hover:border-primary group-hover:bg-primary/10 group-hover:shadow-[0_0_20px_hsl(var(--primary)_/_0.5)] hover:!text-primary hover:scale-105 active:scale-95 ${
-                featured
-                  ? "px-3 py-1.5 gap-2 text-xs sm:text-sm"
-                  : "px-2 py-1 text-xs"
-              }`}
+              className="flex items-center gap-1.5 px-2 py-1 text-xs rounded-lg font-medium text-foreground/90 border border-border/50 bg-card/50 transition-all duration-300 group-hover:border-primary group-hover:bg-primary/10 group-hover:shadow-[0_0_20px_hsl(var(--primary)_/_0.5)] hover:!text-primary hover:scale-105 active:scale-95"
               aria-label={`Watch ${project.name} video demo`}
             >
-              <Play className={featured ? "h-4 w-4" : "h-3.5 w-3.5"} />
+              <Play className="h-3.5 w-3.5" />
               <span>Video</span>
             </a>
           )}
@@ -152,22 +139,78 @@ const ProjectCard = ({ project, featured = false }) => {
 };
 
 /**
- * ProjectsSection component - Static responsive grids for featured and filtered projects
+ * ProjectsSection component - Single carousel section with filter tabs
  *
  * Features:
- * - Responsive grid layout (1 col mobile → 2 col tablet → 3 col desktop → 4 col large)
- * - Featured projects grid
- * - Tab-based filtering for all projects
- * - No horizontal scrolling - natural wrapping
- * - Border glow on hover
+ * - Single unified projects section
+ * - Carousel showing 3 cards (desktop), 2 (tablet), 1 (mobile)
+ * - Featured projects sorted first
+ * - Filter tabs for categories
+ * - Navigation arrows and dot indicators
  *
- * @returns {JSX.Element} Projects section with static responsive grids
+ * @returns {JSX.Element} Projects section with carousel
  */
 export const ProjectsSection = () => {
-  const [activeFilter, setActiveFilter] = useState("all");
+  const [activeFilter, setActiveFilter] = useState('all');
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
 
+  // Embla carousel setup
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: 'start',
+    loop: false,
+    skipSnaps: false,
+    dragFree: false,
+  });
+
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [scrollSnaps, setScrollSnaps] = useState([]);
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
+
+  const scrollTo = useCallback(
+    (index) => {
+      if (emblaApi) emblaApi.scrollTo(index);
+    },
+    [emblaApi]
+  );
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+    setCanScrollPrev(emblaApi.canScrollPrev());
+    setCanScrollNext(emblaApi.canScrollNext());
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    setScrollSnaps(emblaApi.scrollSnapList());
+    emblaApi.on('select', onSelect);
+    emblaApi.on('reInit', onSelect);
+    return () => {
+      emblaApi.off('select', onSelect);
+      emblaApi.off('reInit', onSelect);
+    };
+  }, [emblaApi, onSelect]);
+
+  // Re-init carousel when filter changes
+  useEffect(() => {
+    if (emblaApi) {
+      emblaApi.reInit();
+      setScrollSnaps(emblaApi.scrollSnapList());
+    }
+  }, [emblaApi, activeFilter]);
+
+  // Intersection observer for section visibility
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -190,22 +233,19 @@ export const ProjectsSection = () => {
     };
   }, [isVisible]);
 
-  const featuredProjects = projectsData.filter((project) => project.featured);
-  const allProjects = projectsData;
+  // Sort and filter projects - featured first
+  const sortedProjects = [...projectsData].sort((a, b) => {
+    if (a.featured && !b.featured) return -1;
+    if (!a.featured && b.featured) return 1;
+    return 0;
+  });
 
   const filterProjects = (projects) => {
-    if (activeFilter === "all") return projects;
+    if (activeFilter === 'all') return projects;
     return projects.filter((project) => project.tags.includes(activeFilter));
   };
 
-  const filteredProjects = filterProjects(allProjects);
-
-  // Animation delay calculation for projects
-  const getProjectDelay = (index, isFeatured = false) => {
-    const baseDelay = isFeatured ? 0.2 : 0.1;
-    const cardDelay = 0.15;
-    return `${baseDelay + (index + 1) * cardDelay}s`;
-  };
+  const filteredProjects = filterProjects(sortedProjects);
 
   return (
     <section
@@ -216,100 +256,122 @@ export const ProjectsSection = () => {
       <div className="container mx-auto max-w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
         {/* Section header */}
         <h2
-          className={`text-2xl sm:text-3xl md:text-4xl font-bold mb-10 sm:mb-12 md:mb-16 text-center transition-opacity duration-600 ${
-            isVisible ? "opacity-100 animate-fade-in" : "opacity-0"
-          }`}
+          className={cn(
+            'text-2xl sm:text-3xl md:text-4xl font-bold mb-8 sm:mb-10 md:mb-12 text-center transition-opacity duration-600',
+            isVisible ? 'opacity-100 animate-fade-in' : 'opacity-0'
+          )}
         >
           My <span className="text-primary">Projects</span>
         </h2>
 
-        {/* Featured Projects - Static Grid */}
-        {featuredProjects.length > 0 && (
-          <div className="mb-12 sm:mb-16 md:mb-20">
-            <h3
-              className={`text-xl sm:text-2xl font-semibold mb-6 sm:mb-8 text-center transition-opacity duration-600 ${
-                isVisible ? "opacity-100 animate-fade-in-delay-1" : "opacity-0"
-              }`}
+        {/* Filter tabs */}
+        <div
+          className={cn(
+            'flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-10 transition-opacity duration-600',
+            isVisible ? 'opacity-100 animate-fade-in-delay-1' : 'opacity-0'
+          )}
+        >
+          {PROJECT_FILTERS.map((filter) => (
+            <button
+              key={filter.id}
+              onClick={() => setActiveFilter(filter.id)}
+              className={cn(
+                'px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 border-2',
+                activeFilter === filter.id
+                  ? 'bg-primary text-primary-foreground border-primary shadow-[0_0_25px_hsl(var(--primary)_/_0.6)] scale-105'
+                  : 'bg-card text-foreground/70 border-primary/20 hover:bg-primary/10 hover:text-primary hover:border-primary'
+              )}
+              aria-label={`Filter projects by ${filter.label}`}
             >
-              Featured Projects
-            </h3>
-            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8 md:gap-10 justify-items-center max-w-7xl mx-auto">
-              {featuredProjects.map((project, index) => (
-                <div
-                  key={project.id}
-                  className="w-full flex justify-center opacity-0"
-                  style={
-                    isVisible
-                      ? {
-                          animation: `fadeIn 0.6s ease-out ${getProjectDelay(
-                            index,
-                            true
-                          )} forwards`,
-                        }
-                      : {}
-                  }
-                >
-                  <ProjectCard project={project} featured={true} />
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+              {filter.label}
+            </button>
+          ))}
+        </div>
 
-        {/* All Projects with Filter Tabs - Static Grid */}
-        <div>
-          <h3
-            className={`text-xl sm:text-2xl font-semibold mb-6 sm:mb-8 text-center transition-opacity duration-600 ${
-              isVisible ? "opacity-100 animate-fade-in-delay-2" : "opacity-0"
-            }`}
-          >
-            All Projects
-          </h3>
-
-          {/* Filter tabs */}
-          <div
-            className={`flex flex-wrap justify-center gap-2 sm:gap-3 mb-6 sm:mb-8 transition-opacity duration-600 ${
-              isVisible ? "opacity-100 animate-fade-in-delay-3" : "opacity-0"
-            }`}
-          >
-            {PROJECT_FILTERS.map((filter) => (
-              <button
-                key={filter.id}
-                onClick={() => setActiveFilter(filter.id)}
-                className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 border-2 ${
-                  activeFilter === filter.id
-                    ? "bg-primary text-primary-foreground border-primary shadow-[0_0_25px_hsl(var(--primary)_/_0.6)] scale-105"
-                    : "bg-card text-foreground/70 border-primary/20 hover:bg-primary/10 hover:text-primary hover:border-primary"
-                }`}
-                aria-label={`Filter projects by ${filter.label}`}
-              >
-                {filter.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Filtered projects - Static Grid (Max 3 columns) */}
+        {/* Carousel container */}
+        <div
+          className={cn(
+            'relative transition-opacity duration-600',
+            isVisible ? 'opacity-100 animate-fade-in-delay-2' : 'opacity-0'
+          )}
+        >
           {filteredProjects.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 justify-items-center max-w-6xl mx-auto">
-              {filteredProjects.map((project, index) => (
-                <div
-                  key={project.id}
-                  className="w-full flex justify-center opacity-0"
-                  style={
-                    isVisible
-                      ? {
-                          animation: `fadeIn 0.6s ease-out ${getProjectDelay(
-                            index,
-                            false
-                          )} forwards`,
-                        }
-                      : {}
-                  }
-                >
-                  <ProjectCard project={project} featured={false} />
+            <>
+              {/* Carousel viewport - mx for arrow spacing */}
+              <div className="overflow-hidden mx-10 sm:mx-12" ref={emblaRef}>
+                {/* py-4 provides vertical breathing room for hover scale effect */}
+                <div className="flex gap-2 py-4">
+                  {filteredProjects.map((project) => (
+                    <div
+                      key={project.id}
+                      className="flex-[0_0_100%] sm:flex-[0_0_calc(50%-4px)] lg:flex-[0_0_calc(33.333%-6px)] min-w-0 flex justify-center"
+                    >
+                      <ProjectCard project={project} />
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </div>
+
+              {/* Navigation arrows */}
+              {filteredProjects.length > 3 && (
+                <>
+                  <button
+                    onClick={scrollPrev}
+                    disabled={!canScrollPrev}
+                    className={cn(
+                      'absolute left-1 sm:left-2 top-1/2 -translate-y-1/2 z-20',
+                      'w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-background/90 backdrop-blur-sm',
+                      'flex items-center justify-center',
+                      'border border-primary/30 shadow-md',
+                      'transition-all duration-200',
+                      canScrollPrev
+                        ? 'hover:bg-primary hover:text-primary-foreground hover:border-primary hover:shadow-[0_0_15px_hsl(var(--primary)_/_0.5)]'
+                        : 'opacity-30 cursor-not-allowed'
+                    )}
+                    aria-label="Previous projects"
+                  >
+                    <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </button>
+
+                  <button
+                    onClick={scrollNext}
+                    disabled={!canScrollNext}
+                    className={cn(
+                      'absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 z-20',
+                      'w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-background/90 backdrop-blur-sm',
+                      'flex items-center justify-center',
+                      'border border-primary/30 shadow-md',
+                      'transition-all duration-200',
+                      canScrollNext
+                        ? 'hover:bg-primary hover:text-primary-foreground hover:border-primary hover:shadow-[0_0_15px_hsl(var(--primary)_/_0.5)]'
+                        : 'opacity-30 cursor-not-allowed'
+                    )}
+                    aria-label="Next projects"
+                  >
+                    <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </button>
+                </>
+              )}
+
+              {/* Dot indicators */}
+              {scrollSnaps.length > 1 && (
+                <div className="flex justify-center gap-2 mt-6 sm:mt-8">
+                  {scrollSnaps.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => scrollTo(index)}
+                      className={cn(
+                        'w-2.5 h-2.5 rounded-full transition-all duration-200',
+                        index === selectedIndex
+                          ? 'bg-primary w-6 shadow-[0_0_10px_hsl(var(--primary)_/_0.6)]'
+                          : 'bg-primary/30 hover:bg-primary/50'
+                      )}
+                      aria-label={`Go to slide ${index + 1}`}
+                    />
+                  ))}
+                </div>
+              )}
+            </>
           ) : (
             <p className="text-center text-foreground/90 font-medium py-8 sm:py-12">
               No projects found in this category.

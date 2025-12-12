@@ -1,9 +1,10 @@
-import { ArrowDown } from "lucide-react";
-import { ProgressiveImage } from "@/components/ProgressiveImage";
-import { personalInfo } from "@/data/navigation";
+import { ProgressiveImage } from '@/components/ProgressiveImage';
+import { SkillMarquee } from '@/components/SkillMarquee';
+import { personalInfo } from '@/data/navigation';
+import { skillsWithLogos } from '@/data/skills';
 
 /**
- * HeroSection component - Home section with profile image and introduction
+ * HeroSection component - Home section with profile image, introduction, and skills
  *
  * Features:
  * - Desktop: Image on left | Content (name, story, CTAs) on right
@@ -11,19 +12,24 @@ import { personalInfo } from "@/data/navigation";
  * - Equal padding on left and right edges (centered layout)
  * - Left-aligned text for better readability
  * - 2 CTA buttons (View My Work, Contact Me)
- * - Visible scroll arrow indicator (desktop only)
+ * - Rolling skills marquee at bottom
  *
  * @returns {JSX.Element} Home section with proper centering
  */
 export const HeroSection = () => {
+  // Split skills into 2 rows for cleaner look
+  const row1 = skillsWithLogos.slice(0, 13);
+  const row2 = skillsWithLogos.slice(13);
+
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center py-20 sm:py-16 md:py-20 z-10"
+      className="relative min-h-screen flex flex-col justify-center py-20 sm:py-16 md:py-20 z-10"
     >
-      <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
+      {/* Main content container */}
+      <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 flex-1 flex items-center">
         {/* Main content grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(24rem,auto)_1fr] gap-8 md:gap-12 lg:gap-16 items-center lg:items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(24rem,auto)_1fr] gap-8 md:gap-12 lg:gap-16 items-center lg:items-stretch w-full">
           {/* LEFT - Profile Image */}
           <div className="flex justify-center lg:justify-start lg:items-stretch opacity-0 animate-fade-in">
             {/* Mobile: Smaller image */}
@@ -53,11 +59,11 @@ export const HeroSection = () => {
             {/* Full Name - Single line with fluid responsive sizing */}
             <h1
               className="font-bold leading-tight xl:whitespace-nowrap"
-              style={{ fontSize: "clamp(1.25rem, 2.5vw, 3rem)" }}
+              style={{ fontSize: 'clamp(1.25rem, 2.5vw, 3rem)' }}
             >
               <span className="text-foreground/90 opacity-0 animate-fade-in-delay-1 inline-block">
                 Hi, I'm
-              </span>{" "}
+              </span>{' '}
               <span className="text-primary opacity-0 animate-fade-in-delay-2 inline-block">
                 Priyanka Kavali Subramanyam
               </span>
@@ -92,12 +98,10 @@ export const HeroSection = () => {
         </div>
       </div>
 
-      {/* Scroll indicator - Enhanced visibility (hidden on mobile) */}
-      <div className="hidden md:flex absolute bottom-8 left-1/2 transform -translate-x-1/2 flex-col items-center animate-bounce z-20">
-        <span className="text-sm font-medium text-foreground/90 mb-2 backdrop-blur-sm bg-background/50 px-3 py-1 rounded-full">
-          Scroll
-        </span>
-        <ArrowDown className="h-6 w-6 text-primary drop-shadow-lg" />
+      {/* Skills Marquee - Full width at bottom, 2 rows */}
+      <div className="w-full mt-8 sm:mt-12 md:mt-16 space-y-1 opacity-0 animate-fade-in-delay-6">
+        <SkillMarquee skills={row1} direction="left" speed={40} />
+        <SkillMarquee skills={row2} direction="right" speed={40} />
       </div>
     </section>
   );

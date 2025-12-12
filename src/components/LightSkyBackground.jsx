@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 /**
  * LightSkyBackground component - Animated sky with continuous drifting clouds
@@ -150,11 +150,11 @@ export const LightSkyBackground = () => {
       }, 150);
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     return () => {
       clearTimeout(resizeTimeout);
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
@@ -181,7 +181,7 @@ export const LightSkyBackground = () => {
           key={`cloud-${cloud.id}-${cloud.animKey}`}
           className="animate-cloud-drift"
           style={{
-            position: "absolute",
+            position: 'absolute',
             top: `${cloud.y}%`,
             left: `${cloud.x}%`,
             width: `${cloud.size}px`,

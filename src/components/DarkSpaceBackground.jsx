@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 /**
  * DarkSpaceBackground component - Animated starfield with shooting stars
@@ -35,14 +35,22 @@ export const DarkSpaceBackground = () => {
     const newStars = [];
 
     // Helper function to generate a star layer
-    const generateStarLayer = (count, sizeRange, opacityRange, category, twinkleChance) => {
+    const generateStarLayer = (
+      count,
+      sizeRange,
+      opacityRange,
+      category,
+      twinkleChance
+    ) => {
       for (let i = 0; i < count; i++) {
         newStars.push({
           id: `${category}-${i}`,
           x: Math.random() * 100,
           y: Math.random() * 100,
           size: Math.random() * (sizeRange[1] - sizeRange[0]) + sizeRange[0],
-          opacity: Math.random() * (opacityRange[1] - opacityRange[0]) + opacityRange[0],
+          opacity:
+            Math.random() * (opacityRange[1] - opacityRange[0]) +
+            opacityRange[0],
           twinkle: Math.random() > twinkleChance,
           twinkleDelay: Math.random() * 5,
         });
@@ -50,13 +58,13 @@ export const DarkSpaceBackground = () => {
     };
 
     // Small stars (far away) - 300 stars
-    generateStarLayer(300, [0.5, 1.5], [0.3, 0.8], "small", 0.7);
+    generateStarLayer(300, [0.5, 1.5], [0.3, 0.8], 'small', 0.7);
 
     // Medium stars (mid-distance) - 100 stars
-    generateStarLayer(100, [1, 2.5], [0.5, 0.9], "medium", 0.5);
+    generateStarLayer(100, [1, 2.5], [0.5, 0.9], 'medium', 0.5);
 
     // Large stars (closer, brighter) - 50 stars
-    generateStarLayer(50, [1.5, 3.5], [0.7, 1.0], "large", 0.3);
+    generateStarLayer(50, [1.5, 3.5], [0.7, 1.0], 'large', 0.3);
 
     return newStars;
   });
@@ -119,7 +127,8 @@ export const DarkSpaceBackground = () => {
         const previousHeight = viewportSizeRef.current.height;
 
         // Calculate percentage change
-        const widthChange = Math.abs(currentWidth - previousWidth) / previousWidth;
+        const widthChange =
+          Math.abs(currentWidth - previousWidth) / previousWidth;
         const heightChange =
           Math.abs(currentHeight - previousHeight) / previousHeight;
 
@@ -136,11 +145,11 @@ export const DarkSpaceBackground = () => {
       }, 150);
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     return () => {
       clearTimeout(resizeTimeout);
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
@@ -153,20 +162,20 @@ export const DarkSpaceBackground = () => {
       {stars.map((star) => (
         <div
           key={star.id}
-          className={star.twinkle ? "animate-twinkle" : ""}
+          className={star.twinkle ? 'animate-twinkle' : ''}
           style={{
-            position: "absolute",
+            position: 'absolute',
             width: `${star.size}px`,
             height: `${star.size}px`,
             left: `${star.x}%`,
             top: `${star.y}%`,
-            borderRadius: "50%",
-            backgroundColor: "#ffffff",
+            borderRadius: '50%',
+            backgroundColor: '#ffffff',
             opacity: star.opacity,
             boxShadow: `0 0 ${star.size * 2}px rgba(255, 255, 255, ${
               star.opacity * 0.8
             })`,
-            animationDelay: star.twinkle ? `${star.twinkleDelay}s` : "0s",
+            animationDelay: star.twinkle ? `${star.twinkleDelay}s` : '0s',
           }}
         />
       ))}

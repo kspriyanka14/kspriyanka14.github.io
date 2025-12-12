@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { PLACEHOLDER_IMAGE, IMAGE_FORMATS } from "@/data/constants";
+import { useState, useEffect } from 'react';
+import { PLACEHOLDER_IMAGE, IMAGE_FORMATS } from '@/data/constants';
 
 /**
  * ProgressiveImage component with fallback support for AVIF → WebP → JPEG → Placeholder
@@ -32,8 +32,8 @@ export const ProgressiveImage = ({
   imageNameDark,
   folder,
   alt,
-  className = "",
-  aspectRatio = "16/9",
+  className = '',
+  aspectRatio = '16/9',
 }) => {
   const [imageError, setImageError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -42,7 +42,7 @@ export const ProgressiveImage = ({
   // Detect theme changes
   useEffect(() => {
     const checkDarkMode = () => {
-      setIsDarkMode(document.documentElement.classList.contains("dark"));
+      setIsDarkMode(document.documentElement.classList.contains('dark'));
     };
 
     // Initial check
@@ -52,7 +52,7 @@ export const ProgressiveImage = ({
     const observer = new MutationObserver(checkDarkMode);
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ["class"],
+      attributeFilter: ['class'],
     });
 
     return () => observer.disconnect();
@@ -112,7 +112,7 @@ export const ProgressiveImage = ({
             onError={handleError}
             onLoad={handleLoad}
             className={`h-full w-full object-cover transition-opacity duration-300 ${
-              isLoaded ? "opacity-100" : "opacity-0"
+              isLoaded ? 'opacity-100' : 'opacity-0'
             }`}
           />
         </picture>

@@ -69,32 +69,32 @@
         // Theme initialization logic
         // Priority: localStorage > system preference > dark default
 
-        const STORAGE_KEY = "theme";
-        const DARK_CLASS = "dark";
+        const STORAGE_KEY = 'theme';
+        const DARK_CLASS = 'dark';
 
         // Colors for Safari mobile status bar (hex for better Safari compatibility)
-        const LIGHT_THEME_COLOR = "#f0f6fa"; // Light sky blue
-        const DARK_THEME_COLOR = "#0d0d12"; // Deep space (not pure black - Safari rejects #000)
+        const LIGHT_THEME_COLOR = '#f0f6fa'; // Light sky blue
+        const DARK_THEME_COLOR = '#0d0d12'; // Deep space (not pure black - Safari rejects #000)
 
         function getInitialTheme() {
           // 1. Check localStorage first (user's explicit choice)
           const storedTheme = localStorage.getItem(STORAGE_KEY);
-          if (storedTheme === "dark" || storedTheme === "light") {
+          if (storedTheme === 'dark' || storedTheme === 'light') {
             return storedTheme;
           }
 
           // 2. Check system preference (prefers-color-scheme)
           if (window.matchMedia) {
-            if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-              return "dark";
+            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+              return 'dark';
             }
-            if (window.matchMedia("(prefers-color-scheme: light)").matches) {
-              return "light";
+            if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+              return 'light';
             }
           }
 
           // 3. Default to dark theme
-          return "dark";
+          return 'dark';
         }
 
         function updateThemeColor(isDark) {
@@ -103,8 +103,8 @@
             'meta[name="theme-color"]:not([media])'
           );
           if (!themeColorMeta) {
-            themeColorMeta = document.createElement("meta");
-            themeColorMeta.name = "theme-color";
+            themeColorMeta = document.createElement('meta');
+            themeColorMeta.name = 'theme-color';
             document.head.appendChild(themeColorMeta);
           }
           themeColorMeta.content = isDark
@@ -114,7 +114,7 @@
 
         // Apply theme immediately
         const theme = getInitialTheme();
-        const isDark = theme === "dark";
+        const isDark = theme === 'dark';
 
         if (isDark) {
           document.documentElement.classList.add(DARK_CLASS);

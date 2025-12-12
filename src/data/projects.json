@@ -1,19 +1,5 @@
 [
   {
-    "id": "portfolio",
-    "name": "Portfolio Website",
-    "description": "A modern, responsive personal portfolio website built with React and Tailwind CSS, featuring smooth animations, theme toggling, and an elegant design showcasing my projects and skills.",
-    "tags": ["frontend", "design"],
-    "featured": true,
-    "githubLink": "https://github.com/kspriyanka14/kspriyanka14.github.io",
-    "liveDemoLink": "https://priyankaks.com",
-    "videoLink": "",
-    "imageName": "portfolio",
-    "imageNameDark": "portfolio-dark",
-    "imageNameLight": "portfolio-light",
-    "techStack": ["React", "Vite", "Tailwind CSS", "JavaScript"]
-  },
-  {
     "id": "filetrace",
     "name": "FileTrace",
     "description": "An audit-first file management platform with secure upload, organization, and sharing capabilities. Features comprehensive activity tracking, server-side encryption, categorized file organization, and time-limited shareable links with access monitoring.",
@@ -53,6 +39,20 @@
       "Tailwind CSS",
       "Jest"
     ]
+  },
+  {
+    "id": "portfolio",
+    "name": "Portfolio Website",
+    "description": "A modern, responsive personal portfolio website built with React and Tailwind CSS, featuring smooth animations, theme toggling, and an elegant design showcasing my projects and skills.",
+    "tags": ["frontend", "design"],
+    "featured": true,
+    "githubLink": "https://github.com/kspriyanka14/kspriyanka14.github.io",
+    "liveDemoLink": "https://priyankaks.com",
+    "videoLink": "",
+    "imageName": "portfolio",
+    "imageNameDark": "portfolio-dark",
+    "imageNameLight": "portfolio-light",
+    "techStack": ["React", "Vite", "Tailwind CSS", "JavaScript"]
   },
   {
     "id": "smart-posture",

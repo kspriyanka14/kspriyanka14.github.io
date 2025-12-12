@@ -1,5 +1,5 @@
-import { ArrowUp } from "lucide-react";
-import { useEffect, useState } from "react";
+import { ArrowUp } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 /**
  * Footer component - Site footer with copyright and scroll-to-top button
@@ -31,16 +31,15 @@ export const Footer = () => {
     handleScroll();
 
     // Add scroll listener
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     // Cleanup
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <footer className="py-6 text-center text-sm text-muted-foreground relative z-10">
       &copy; {currentYear} Priyanka Kavali Subramanyam. All rights reserved.
-
       {/* Scroll to top button - Only visible after scrolling past home section */}
       <a
         href="#home"
@@ -51,8 +50,8 @@ export const Footer = () => {
           hover:border-primary/40 pointer-events-auto
           ${
             showScrollButton
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-4 pointer-events-none"
+              ? 'opacity-100 translate-y-0'
+              : 'opacity-0 translate-y-4 pointer-events-none'
           }
         `}
         aria-label="Scroll to top"
