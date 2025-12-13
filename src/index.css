@@ -28,6 +28,7 @@
   --animate-twinkle: twinkle 3s ease-in-out infinite;
   --animate-cloud-drift: cloudDrift 60s linear forwards;
   --animate-shine: shine 0.6s ease-out forwards;
+  --animate-spin-slow: spinSlow 20s linear infinite;
 
   /* Marquee animations - defined here, applied via classes below */
   @keyframes scrollLeft {
@@ -124,6 +125,15 @@
     100% {
       box-shadow: 0 0 0 hsl(var(--primary) / 0);
       transform: scale(1);
+    }
+  }
+
+  @keyframes spinSlow {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
     }
   }
 }
